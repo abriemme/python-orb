@@ -4,12 +4,6 @@ description: |
   Otherwise, use the built in unittest module as the test-tool.
 
 parameters:
-  version:
-    type: string
-    default: "3.8"
-    description: |
-      A full version tag must be specified. Example: "3.8"
-      For a full list of releases, see the following: https://hub.docker.com/r/cimg/python
   pkg-manager:
     type: enum
     enum: [auto, pip, pipenv, poetry, pip-dist]
@@ -85,9 +79,12 @@ parameters:
     default: []
     description: >
       Steps needed between restoring the cache and the install step.
-
+  executor:
+    type: executor
+    default: default
+    
 executor:
-  name: default
+  name: << parameters.executor >>
   tag: << parameters.version >>
 
 steps:
